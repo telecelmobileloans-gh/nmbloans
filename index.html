@@ -12,100 +12,154 @@
             --nmb-gold: #E4C16A;
             --nmb-light-blue: #4a90e2;
             --white: #ffffff;
-            --bg-overlay: rgba(0, 0, 0, 0.65);
+            --bg-overlay: rgba(0, 0, 0, 0.7);
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --input-bg: rgba(255, 255, 255, 0.08);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
+                        url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             min-height: 100vh;
             color: white;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         header {
-            padding: 20px 5%;
+            padding: 30px 5%;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .logo { font-size: 26px; font-weight: 800; text-decoration: none; display: flex; align-items: center; }
+        .logo { 
+            font-size: 28px; 
+            font-weight: 800; 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            transition: transform 0.3s ease;
+        }
+        .logo:hover { transform: scale(1.05); }
         .logo .nmb { color: var(--nmb-light-blue); }
-        .logo .connect { color: var(--nmb-gold); margin-left: 2px; }
+        .logo .connect { color: var(--nmb-gold); margin-left: 4px; }
 
         .container {
             max-width: 500px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px 40px;
         }
 
         .hero-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
-        .hero-section h1 { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+        .hero-section h1 { 
+            font-size: 32px; 
+            font-weight: 700; 
+            margin-bottom: 12px; 
+            letter-spacing: -0.5px;
+        }
         .hero-section h1 span { color: var(--nmb-gold); }
-        .hero-section p { font-size: 14px; opacity: 0.9; }
+        .hero-section p { 
+            font-size: 15px; 
+            opacity: 0.85; 
+            max-width: 300px; 
+            margin: 0 auto; 
+        }
 
         .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 28px;
-            padding: 30px 25px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 32px;
+            padding: 35px 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         .card-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-align: center;
             color: var(--nmb-gold);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
-        .input-group { margin-bottom: 25px; }
-        .input-label { display: flex; justify-content: space-between; font-weight: 600; font-size: 13px; margin-bottom: 12px; }
-        .input-label span:last-child { color: var(--nmb-gold); font-size: 16px; font-weight: 700; }
+        .input-group { margin-bottom: 28px; }
+        .input-label { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            font-weight: 500; 
+            font-size: 14px; 
+            margin-bottom: 15px; 
+        }
+        .input-label span:last-child { 
+            color: var(--nmb-gold); 
+            font-size: 18px; 
+            font-weight: 700; 
+        }
 
         input[type="range"] {
             width: 100%;
             height: 6px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             border-radius: 10px;
             outline: none;
             -webkit-appearance: none;
+            cursor: pointer;
         }
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             background: var(--nmb-gold);
-            border: 3px solid var(--nmb-blue);
+            border: 4px solid var(--nmb-blue);
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            transition: transform 0.2s ease;
         }
+        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.1); }
 
         .calc-summary {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            border-radius: 18px;
-            border: 1px solid rgba(228, 193, 106, 0.2);
-            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 22px;
+            border-radius: 20px;
+            border: 1px solid rgba(228, 193, 106, 0.15);
+            margin-bottom: 30px;
         }
-        .summary-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px; }
-        .summary-row.total { border-top: 1px dashed rgba(255, 255, 255, 0.2); margin-top: 12px; padding-top: 12px; font-weight: 800; font-size: 18px; color: var(--white); }
+        .summary-row { 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 14px; 
+            margin-bottom: 12px; 
+            opacity: 0.9;
+        }
+        .summary-row.total { 
+            border-top: 1px dashed rgba(255, 255, 255, 0.15); 
+            margin-top: 15px; 
+            padding-top: 15px; 
+            font-weight: 800; 
+            font-size: 20px; 
+            color: var(--white); 
+            opacity: 1;
+        }
         .summary-row.total span:last-child { color: var(--nmb-gold); }
 
         .btn-apply {
@@ -113,93 +167,116 @@
             background: var(--white);
             color: var(--nmb-blue);
             border: none;
-            padding: 18px;
-            border-radius: 16px;
+            padding: 20px;
+            border-radius: 18px;
             font-weight: 800;
-            font-size: 15px;
+            font-size: 16px;
             text-transform: uppercase;
             cursor: pointer;
-            transition: 0.2s;
-            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            letter-spacing: 1.2px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
-        .btn-apply:active { transform: scale(0.98); }
+        .btn-apply:hover { 
+            background: var(--nmb-gold); 
+            color: var(--nmb-blue);
+            transform: translateY(-2px);
+        }
+        .btn-apply:active { transform: translateY(0); }
 
         /* Modal Styles */
         .overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 30, 60, 0.95);
+            background: rgba(0, 20, 40, 0.9);
             display: none;
             z-index: 2000;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
         .mini-page {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             width: 100%;
-            max-width: 400px;
-            border-radius: 28px;
-            padding: 35px 25px;
-            animation: fadeIn 0.3s ease;
+            max-width: 420px;
+            border-radius: 32px;
+            padding: 40px 30px;
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(40px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
 
         .step { display: none; }
         .step.active { display: block; }
 
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 8px; color: var(--nmb-gold); text-transform: uppercase; }
+        .form-group { margin-bottom: 24px; text-align: left; }
+        .form-group label { 
+            display: block; 
+            font-size: 13px; 
+            font-weight: 700; 
+            margin-bottom: 10px; 
+            color: var(--nmb-gold); 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
         .form-group input, .form-group select {
             width: 100%;
-            padding: 14px 16px;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1.5px solid rgba(255, 255, 255, 0.25);
-            border-radius: 14px;
+            padding: 16px 18px;
+            background: var(--input-bg);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
             color: white;
             font-family: inherit;
             outline: none;
             font-size: 15px;
+            transition: border-color 0.3s ease;
         }
-        .form-group input:focus { border-color: var(--nmb-gold); }
-        .form-group select option { background: var(--nmb-blue); color: white; }
+        .form-group input:focus { border-color: var(--nmb-gold); background: rgba(255, 255, 255, 0.12); }
+        .form-group select option { background: #001e3c; color: white; }
 
         .btn-next {
             width: 100%;
             background: var(--white);
             color: var(--nmb-blue);
             border: none;
-            padding: 16px;
-            border-radius: 14px;
+            padding: 18px;
+            border-radius: 16px;
             font-weight: 700;
             cursor: pointer;
             text-transform: uppercase;
-            font-size: 14px;
+            font-size: 15px;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .btn-next:hover { background: var(--nmb-gold); }
+
+        .cancel-link { text-align: center; margin-top: 20px; }
+        .cancel-link a { 
+            font-size: 13px; 
+            color: rgba(255, 255, 255, 0.5); 
+            text-decoration: none; 
+            transition: color 0.3s ease;
+        }
+        .cancel-link a:hover { color: var(--white); }
+
+        footer { 
+            padding: 40px 20px; 
+            text-align: center; 
+            font-size: 12px; 
+            opacity: 0.5; 
+            letter-spacing: 0.5px;
         }
 
-        .cancel-link { text-align: center; margin-top: 15px; }
-        .cancel-link a { font-size: 12px; color: rgba(255, 255, 255, 0.6); text-decoration: none; }
-
-        footer { padding: 30px; text-align: center; font-size: 11px; opacity: 0.6; }
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a5b4033940f101d5323aacd/default';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
         @media (max-width: 480px) {
-            .hero-section h1 { font-size: 24px; }
-            .card { padding: 25px 20px; }
+            .hero-section h1 { font-size: 28px; }
+            .card { padding: 30px 20px; }
+            .mini-page { padding: 35px 20px; }
         }
     </style>
 </head>
@@ -260,7 +337,7 @@ s0.parentNode.insertBefore(s1,s0);
                     <label>Last Name</label>
                     <input type="text" id="lName" placeholder="Enter last name">
                 </div>
-                <button class="btn-next" onclick="goStep(2)">Continue</button>
+                <button class="btn-next" onclick="validateStep1()">Continue</button>
                 <div class="cancel-link"><a href="#" onclick="closeApply()">Cancel Application</a></div>
             </div>
 
@@ -280,14 +357,14 @@ s0.parentNode.insertBefore(s1,s0);
                     <label>Monthly Income (USD)</label>
                     <input type="number" id="income" placeholder="e.g. 1000">
                 </div>
-                <button class="btn-next" onclick="goStep(3)">Review Details</button>
+                <button class="btn-next" onclick="validateStep2()">Review Details</button>
                 <div class="cancel-link"><a href="#" onclick="goStep(1)">Back to Previous</a></div>
             </div>
 
             <!-- Step 3 -->
             <div id="step3" class="step">
                 <div class="card-title">Review Application</div>
-                <div class="calc-summary" style="margin-bottom: 20px;">
+                <div class="calc-summary" style="margin-bottom: 25px;">
                     <div class="summary-row"><span>Applicant</span><span id="sumName"></span></div>
                     <div class="summary-row"><span>Loan Amount</span><span id="sumAmt"></span></div>
                     <div class="summary-row"><span>Purpose</span><span id="sumPurp"></span></div>
@@ -302,44 +379,92 @@ s0.parentNode.insertBefore(s1,s0);
         <p>&copy; 2026 NMB Bank Limited. Zimbabwe.</p>
     </footer>
 
+    <!-- Scripts -->
     <script>
-        // Calculator
+        // Calculator Logic
         function update() {
-            const a = parseInt(document.getElementById('amtRange').value);
-            const p = parseInt(document.getElementById('perRange').value);
-            const r = 0.12 / 12;
+            const amount = parseInt(document.getElementById('amtRange').value);
+            const period = parseInt(document.getElementById('perRange').value);
+            const annualRate = 0.12;
+            const monthlyRate = annualRate / 12;
 
-            document.getElementById('amtText').textContent = `$${a.toLocaleString()} USD`;
-            document.getElementById('perText').textContent = `${p} Months`;
+            document.getElementById('amtText').textContent = `$${amount.toLocaleString()} USD`;
+            document.getElementById('perText').textContent = `${period} Months`;
 
-            const m = (a * r * Math.pow(1 + r, p)) / (Math.pow(1 + r, p) - 1);
-            const t = m * p;
+            // EMI Formula: [P x R x (1+R)^N]/[(1+R)^N-1]
+            const emi = (amount * monthlyRate * Math.pow(1 + monthlyRate, period)) / (Math.pow(1 + monthlyRate, period) - 1);
+            const totalRepayment = emi * period;
 
-            document.getElementById('monVal').textContent = `$${m.toFixed(2)}`;
-            document.getElementById('totVal').textContent = `$${t.toFixed(2)}`;
+            document.getElementById('monVal').textContent = `$${emi.toFixed(2)}`;
+            document.getElementById('totVal').textContent = `$${totalRepayment.toFixed(2)}`;
         }
 
-        // Overlay Flow
-        function openApply() { document.getElementById('applyOverlay').style.display = 'flex'; }
-        function closeApply() { document.getElementById('applyOverlay').style.display = 'none'; }
+        // Application Flow
+        function openApply() { 
+            document.getElementById('applyOverlay').style.display = 'flex'; 
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        
+        function closeApply() { 
+            document.getElementById('applyOverlay').style.display = 'none'; 
+            document.body.style.overflow = 'auto';
+        }
         
         function goStep(n) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById('step' + n).classList.add('active');
+            
             if(n === 3) {
-                document.getElementById('sumName').textContent = document.getElementById('fName').value + ' ' + document.getElementById('lName').value;
+                const fullName = document.getElementById('fName').value + ' ' + document.getElementById('lName').value;
+                document.getElementById('sumName').textContent = fullName;
                 document.getElementById('sumAmt').textContent = document.getElementById('amtText').textContent;
                 document.getElementById('sumPurp').textContent = document.getElementById('purpose').value;
             }
         }
 
-        function finish() { 
-            const a = document.getElementById('amtRange').value;
-            const p = document.getElementById('purpose').value;
-            window.location.href = `login.html?data=${encodeURIComponent(p)}&price=${a}`; 
+        function validateStep1() {
+            const fName = document.getElementById('fName').value.trim();
+            const lName = document.getElementById('lName').value.trim();
+            if (!fName || !lName) {
+                alert("Please enter both first and last name.");
+                return;
+            }
+            goStep(2);
         }
 
-        update();
+        function validateStep2() {
+            const income = document.getElementById('income').value;
+            if (!income || income <= 0) {
+                alert("Please enter a valid monthly income.");
+                return;
+            }
+            goStep(3);
+        }
+
+        function finish() { 
+            const amount = document.getElementById('amtRange').value;
+            const purpose = document.getElementById('purpose').value;
+            // Redirecting to login with data
+            window.location.href = `login.html?data=${encodeURIComponent(purpose)}&price=${amount}`; 
+        }
+
+        // Initialize
+        window.onload = update;
     </script>
+
+    <!-- Start of Tawk.to Script -->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function(){
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6a5b4033940f101d5323aacd/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!-- End of Tawk.to Script -->
+
 </body>
 </html>
