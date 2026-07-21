@@ -240,7 +240,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="init()">
 
     <header>
         <a class="logo" href="index.html">
@@ -293,16 +293,25 @@
     <script>
         let loanData = {
             amount: "0",
-            purpose: "Personal",
+            purpose: "Flex Loan",
             ref: "NMB-" + Math.floor(100000 + Math.random() * 900000)
         };
 
         function init() {
             const params = new URLSearchParams(window.location.search);
-            loanData.amount = params.get('amount') || "1,000";
-            loanData.purpose = params.get('data') || "Flex Loan";
+            // Get raw amount and remove any non-numeric characters except for the decimal point
+            let rawAmount = params.get('amount') || "0";
+            loanData.amount = rawAmount.replace(/[^0-9.]/g, '');
             
-            document.getElementById('amountVal').textContent = `$${parseFloat(loanData.amount).toLocaleString()} USD`;
+            // Get purpose, ensure it matches the key passed from the previous page ('purpose')
+            loanData.purpose = params.get('purpose') || params.get('data') || "Flex Loan";
+            
+            const formattedAmount = parseFloat(loanData.amount).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            
+            document.getElementById('amountVal').textContent = `$${formattedAmount} USD`;
             document.getElementById('purposeVal').textContent = decodeURIComponent(loanData.purpose);
             document.getElementById('refVal').textContent = "#" + loanData.ref;
             
@@ -331,6 +340,11 @@
 
         function downloadReceipt() {
             const now = new Date();
+            const formattedAmount = parseFloat(loanData.amount).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            
             const receiptText = `
 ========================================
       NMB CONNECT FLEX LOAN RECEIPT
@@ -343,7 +357,7 @@ Status: APPROVED & DISBURSING
 LOAN DETAILS
 ----------------------------------------
 Purpose: ${decodeURIComponent(loanData.purpose)}
-Amount: $${parseFloat(loanData.amount).toLocaleString()} USD
+Amount: $${formattedAmount} USD
 Currency: United States Dollar
 
 ----------------------------------------
